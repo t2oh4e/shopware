@@ -597,6 +597,13 @@ class LegacyStructConverter
                 },
                 $group->getOptions()
             );
+            
+            $mediaValues = array_map(
+                function (StoreFrontBundle\Struct\Property\Option $option) {
+                    return $option->getMedia();
+                },
+                $group->getOptions()
+            );
 
             $result[$group->getId()] = [
                 'id'        => $group->getId(),
@@ -606,6 +613,7 @@ class LegacyStructConverter
                 'groupName' => $set->getName(),
                 'value'     => implode(', ', $values),
                 'values'    => $values,
+                'media'     => $mediaValues,
             ];
         }
 
