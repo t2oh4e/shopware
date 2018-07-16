@@ -558,7 +558,12 @@ class Zend_Session extends Zend_Session_Abstract
             }
         }
 
-        $hashBitsPerChar = ini_get('session.hash_bits_per_character');
+        if (version_compare(PHP_VERSION, '7.1', '>=')) {
+            $hashBitsPerChar = ini_get('session.sid_bits_per_character');
+        } else {
+            $hashBitsPerChar = ini_get('session.hash_bits_per_character');
+        }
+
         if (!$hashBitsPerChar) {
             $hashBitsPerChar = 5; // the default value
         }
